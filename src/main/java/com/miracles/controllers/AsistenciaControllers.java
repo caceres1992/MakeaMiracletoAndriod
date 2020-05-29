@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class AsistenciaControllers {
         Map<String, Object> response = new HashMap<>();
 
         try {
+
+
             newAsistencia = asistenciaService.save(asistencia);
         } catch (DataAccessException e) {
             response.put("mensaje", "error al realiar la el insert en la base de datos");
@@ -47,6 +50,17 @@ public class AsistenciaControllers {
 
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
+    }
+
+
+   @PutMapping("/asistencias/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Asistencia Salida(@PathVariable Long id) {
+        Asistencia HoraSalida = asistenciaService.findById(id);
+                if (HoraSalida.getSalida()==null){
+                    HoraSalida.setSalida(LocalTime.now());
+                }
+        return asistenciaService.save(HoraSalida);
     }
 
 

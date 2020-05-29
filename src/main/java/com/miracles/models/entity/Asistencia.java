@@ -2,10 +2,12 @@ package com.miracles.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,14 +20,14 @@ public class Asistencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.TIME)
-    private Date entrada;
-    @Temporal(TemporalType.TIME)
-    private Date Salida;
+    @Column
+    private LocalTime entrada;
+   @Column
+    private LocalTime Salida;
 
-    @Temporal(TemporalType.TIME)
+
     @Column(name = "total_horas")
-    private Date totaldehoras;
+    private LocalTime totaldehoras;
     private String comentario;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,12 +38,11 @@ public class Asistencia implements Serializable {
     private boolean estado;
 
     @PrePersist
-    public void Prepresist(){
 
+        public void Prepresist(){
         estado = true;
-        Long  resultadodeHoras = entrada.getTime() - Salida.getTime();
-        totaldehoras = new Date(resultadodeHoras);
-
+        entrada = LocalTime.now();
+       ;
     }
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante")
