@@ -41,7 +41,6 @@ public class AsistenciaServiceImp implements IAsistenciaService {
         daoAsistencia.deleteById(id);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public List<Estudiante> findAllEstudiante() {

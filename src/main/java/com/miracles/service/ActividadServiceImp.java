@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Service
-public class ActividadServiceImp implements IActividadService{
+public class ActividadServiceImp implements IActividadService {
 
     @Autowired
     private IDaoActividad daoActividad;
@@ -21,14 +21,11 @@ public class ActividadServiceImp implements IActividadService{
     public List<Actividad> findAll() {
         return (List<Actividad>) daoActividad.findAll();
     }
-
     @Override
     @Transactional(readOnly = true)
     public Actividad finById(Long id) {
         return daoActividad.findById(id).orElse(null);
     }
-
-
 
     @Override
     @Transactional
@@ -39,6 +36,6 @@ public class ActividadServiceImp implements IActividadService{
     @Override
     @Transactional
     public void delete(Long id) {
-            daoActividad.deleteById(id);
+        daoActividad.deleteById(id);
     }
 }

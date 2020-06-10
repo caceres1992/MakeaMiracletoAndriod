@@ -53,13 +53,13 @@ public class AsistenciaControllers {
     }
 
 
-   @PutMapping("/asistencias/{id}")
+    @PutMapping("/asistencias/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Asistencia Salida(@PathVariable Long id) {
         Asistencia HoraSalida = asistenciaService.findById(id);
-                if (HoraSalida.getSalida()==null){
-                    HoraSalida.setSalida(LocalTime.now());
-                }
+        if (HoraSalida.getSalida() == null) {
+            HoraSalida.setSalida(LocalTime.now());
+        }
         return asistenciaService.save(HoraSalida);
     }
 
